@@ -3,7 +3,7 @@ body {
 }
 .buttons {
   margin: 0 auto;
-  width: 14em;
+  width: 16em;
 }
 .buttons button {
   margin: 0.4em 0.5em;
@@ -20,25 +20,34 @@ img {
   height: 100%;
   display: inline-block;
 }
+h2 {
+  margin: 0;
+}
 #table {
-  background: limegreen;
   border: 2px solid black;
   border-radius: 10px;
   margin: 2em auto;
+  padding: 1%;
   width: 80%;
   height: 90vh;
-  min-height: 480px;
+  min-height: 470px;
+  background: limegreen;
 }
 #messages {
-  height: 20vh;
+  height: 15vh;
+  margin: 0 auto;
   width: 95%;
+  text-align: center;
+}
+#messages h2:first-letter {
+  text-transform:capitalize;
 }
 #dealer-hand, #player-hand {
   padding: 5px;
   background: rgb(118,236,123);
   margin: 0.5em auto;
-  height: 20vh;
-  min-height: 110px;
+  height: 22vh;
+  min-height: 100px;
   width: 95%;
   box-shadow: 1px 1px 2px gray;
 }
