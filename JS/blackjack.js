@@ -40,8 +40,7 @@ function game() {
   $('#dealer-points').html('0');
   $('#player-points').html('0');
   // reset buttons
-  $('#hit-button').prop('disabled', false);
-  $('#stand-button').prop('disabled', false);
+  toggleBtns(false)
   $('#restart-button').prop('disabled', true);
 
   // initial deals
@@ -75,20 +74,46 @@ function calc(card) {
   }
   return val;
 }
+// used to disable or reenable buttons
+function toggleBtns(bool=true) {
+  $('#hit-button').prop('disabled', bool);
+  $('#stand-button').prop('disabled', bool);
+}
 
 // checks for bust and displays msg if bust as well as disables buttons
 function check(player) {
   if ($('#'+player+'-points').html() > 21) {
+
     $('#messages').html("<h2>" + player + " busts!</h2>")
-    $('#hit-button').prop('disabled', true);
-    $('#stand-button').prop('disabled', true);
+
+    // resets button disabled properties
+    toggleBtns() // disables hit and stand buttons
     $('#restart-button').prop('disabled', false);
   }
+}
+// win function: determines the winner and prints a message
+function winner() {
+  if ($('#player-points').html() > $('#dealer-points').html()) {
+    console.log('player > dealer: ' + this);
+    $('#messages').html("<h2>Player wins!</h2>")
+  }
+  else if ($('#player-points').html() < $('#dealer-points').html()) {
+    $('#messages').html("<h2>Dealer wins!</h2>")
+  } else {
+    $('#messages').html("<h2>Push</h2>")
+  }
+
+  // enables reset buttons
+  $('#restart-button').prop('disabled', false);
 }
 
 // stand function
 $('#stand-button').click(function() {
+  // disables hit and stand buttons
+  toggleBtns()
+  // gets rid of back of card image
   $('#dealer-hand img:first-of-type').hide();
+  // draws top card of the deck
   var next = shuffled_deck.pop();
   // calls calc function on top card to add to the player's total
   $('#dealer-points').html( parseInt($('#dealer-points').html()) + calc(next));
@@ -98,6 +123,7 @@ $('#stand-button').click(function() {
   while ( $('#dealer-points').html() < 17) {
     give('dealer');
   }
+  winner();
 });
 
 // hit function
