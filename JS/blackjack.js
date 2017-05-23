@@ -39,6 +39,9 @@ function game() {
   // reset points
   $('#dealer-points').html('0');
   $('#player-points').html('0');
+  // reset value of hands
+  $('#dealer-hand').attr('val', '');
+  $('#player-hand').attr('val', '');
   // reset buttons
   toggleBtns(false)
   $('#restart-button').prop('disabled', true);
@@ -57,17 +60,20 @@ function give(player) {
   // pops top card from the deck and assigns to variable for function use
   var next = shuffled_deck.pop();
   // calls calc function on top card to add to the player's total
-  $('#'+player+'-points').html( parseInt($('#'+player+'-points').html()) + calc(next));
+  $('#'+player+'-points').html( parseInt($('#'+player+'-points').html()) + calc(next, player));
   check(player);
   $('#'+player+'-hand').append('<img src="images/'+ next.img + '">');
 }
 
 // calculates the value of the card
-function calc(card) {
+function calc(card, player) {
   var val = parseInt(card.label);
   if (isNaN(val)) {
     if (card.label == 'ace') {
       val = 11;
+      $('#'+player+'-hand').attr('val', function(n,v) {
+        return v += 'a';
+      });
     } else {
       val = 10;
     }
@@ -82,8 +88,15 @@ function toggleBtns(bool=true) {
 
 // checks for bust and displays msg if bust as well as disables buttons
 function check(player) {
-  if ($('#'+player+'-points').html() > 21) {
+  // if they are over 21 and have aces
+  while ($('#'+player+'-points').html() > 21 && $('#'+player+'-hand').attr('val').length > 0) {
+    $('#'+player+'-points').html(parseInt($('#'+player+'-points').html()) - 10);
+    $('#'+player+'-hand').attr('val', function(n,v) {
+      return v.slice(0, -1);
+    });
+  }
 
+  if ($('#'+player+'-points').html() > 21) {
     $('#messages').html("<h2>" + player + " busts!</h2>")
 
     // resets button disabled properties
@@ -94,7 +107,6 @@ function check(player) {
 // win function: determines the winner and prints a message
 function winner() {
   if ($('#player-points').html() > $('#dealer-points').html()) {
-    console.log('player > dealer: ' + this);
     $('#messages').html("<h2>Player wins!</h2>")
   }
   else if ($('#player-points').html() < $('#dealer-points').html()) {
