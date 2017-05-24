@@ -30,7 +30,6 @@ h2 {
   padding: 1%;
   width: 80%;
   height: 90vh;
-  min-height: 405px;
   background: limegreen;
 }
 #messages {
@@ -47,17 +46,11 @@ h2 {
   background: rgb(118,236,123);
   margin: 0.5em auto;
   height: 24vh;
-  min-height: 100px;
   width: 95%;
   box-shadow: 1px 1px 2px gray;
 }
 
-@media screen and (max-width: 520px) {
-  #dealer-hand, #player-hand {
-    height: 20vh;
-    min-height: 70px;
-  }
-  #table {
-    min-height: 370px;
-  }
+@media screen and (max-width: 625px) {
+  #dealer-hand, #player-hand {height: 20vh;}
+  img {height:85%}
 }
