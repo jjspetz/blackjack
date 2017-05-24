@@ -26,15 +26,15 @@ h2 {
 #table {
   border: 2px solid black;
   border-radius: 10px;
-  margin: 2em auto;
+  margin: 1em auto;
   padding: 1%;
   width: 80%;
   height: 90vh;
-  min-height: 470px;
+  min-height: 405px;
   background: limegreen;
 }
 #messages {
-  height: 15vh;
+  height: 12vh;
   margin: 0 auto;
   width: 95%;
   text-align: center;
@@ -46,8 +46,18 @@ h2 {
   padding: 5px;
   background: rgb(118,236,123);
   margin: 0.5em auto;
-  height: 22vh;
+  height: 24vh;
   min-height: 100px;
   width: 95%;
   box-shadow: 1px 1px 2px gray;
+}
+
+@media screen and (max-width: 520px) {
+  #dealer-hand, #player-hand {
+    height: 20vh;
+    min-height: 70px;
+  }
+  #table {
+    min-height: 370px;
+  }
 }

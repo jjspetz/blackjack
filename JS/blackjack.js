@@ -1,7 +1,6 @@
 // global variables
 var deck;
 var shuffled_deck;
-var bucket = 'http://blackjack.jjspetseris.com/'
 
 // deck building function
 var deckArray = []
@@ -48,7 +47,7 @@ function game() {
   $('#restart-button').prop('disabled', true);
 
   // initial deals
-  $('#dealer-hand').append('<img src="' + bucket + 'images/back.png">');
+  $('#dealer-hand').append('<img src="images/back.png">');
   give('dealer');
   give('player');
   give('player');
@@ -87,6 +86,9 @@ function toggleBtns(bool=true) {
   $('#stand-button').prop('disabled', bool);
 }
 
+// flip function: flips over a card by adding css
+
+
 // checks for bust and displays msg if bust as well as disables buttons
 function check(player) {
   // if they are over 21 and have aces
@@ -110,7 +112,7 @@ function winner() {
   if ($('#player-points').html() > $('#dealer-points').html()) {
     $('#messages').append("<h2>Player wins!</h2>")
   }
-  else if ($('#dealer-points').html() > 22) {
+  else if ($('#dealer-points').html() > 21) {
     $('#messages').append("<h2>Player wins!</h2>")
   }
   else if ($('#player-points').html() == $('#dealer-points').html()) {
