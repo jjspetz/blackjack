@@ -110,14 +110,13 @@ function winner() {
   if ($('#player-points').html() > $('#dealer-points').html()) {
     $('#messages').append("<h2>Player wins!</h2>")
   }
-  else if ($('#player-points').html() < $('#dealer-points').html()
-    && $('#dealer-points').html() < 22) {
-    $('#messages').append("<h2>Dealer wins!</h2>")
+  else if ($('#dealer-points').html() > 22) {
+    $('#messages').append("<h2>Player wins!</h2>")
   }
   else if ($('#player-points').html() == $('#dealer-points').html()) {
     $('#messages').html("<h2>Push</h2>")
   } else {
-    $('#messages').append("<h2>Player wins!</h2>")
+    $('#messages').append("<h2>Dealer wins!</h2>")
   }
 
   // enables reset buttons
