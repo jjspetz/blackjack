@@ -1,6 +1,7 @@
 // global variables
 var deck;
 var shuffled_deck;
+var bucket = 'http://blackjack.jjspetseris.com/'
 
 // deck building function
 var deckArray = []
@@ -47,7 +48,7 @@ function game() {
   $('#restart-button').prop('disabled', true);
 
   // initial deals
-  $('#dealer-hand').append('<img src="images/back.png">');
+  $('#dealer-hand').append('<img src="' + bucket + 'images/back.png">');
   give('dealer');
   give('player');
   give('player');
@@ -107,12 +108,16 @@ function check(player) {
 // win function: determines the winner and prints a message
 function winner() {
   if ($('#player-points').html() > $('#dealer-points').html()) {
-    $('#messages').html("<h2>Player wins!</h2>")
+    $('#messages').append("<h2>Player wins!</h2>")
   }
-  else if ($('#player-points').html() < $('#dealer-points').html()) {
-    $('#messages').html("<h2>Dealer wins!</h2>")
-  } else {
+  else if ($('#player-points').html() < $('#dealer-points').html()
+    && $('#dealer-points').html() < 22) {
+    $('#messages').append("<h2>Dealer wins!</h2>")
+  }
+  else if ($('#player-points').html() == $('#dealer-points').html()) {
     $('#messages').html("<h2>Push</h2>")
+  } else {
+    $('#messages').append("<h2>Player wins!</h2>")
   }
 
   // enables reset buttons
@@ -127,14 +132,17 @@ $('#stand-button').click(function() {
   $('#dealer-hand img:first-of-type').hide();
   // draws top card of the deck
   var next = shuffled_deck.pop();
+
   // calls calc function on top card to add to the player's total
+  $('#dealer-hand').prepend('<img src="images/'+ next.img + '">');
   $('#dealer-points').html( parseInt($('#dealer-points').html()) + calc(next));
   check('dealer');
-  $('#dealer-hand').prepend('<img src="images/'+ next.img + '">');
+
   // dealer hits if under 17
   while ( $('#dealer-points').html() < 17) {
     give('dealer');
   }
+  // prints winning conditions
   winner();
 });
 
